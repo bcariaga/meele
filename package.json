@@ -1,0 +1,16 @@
+{
+  "name": "meele",
+  "version": "0.0.1",
+  "description": "una ui con electron para Memcached",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "memcached",
+    "electron",
+    "nodejs"
+  ],
+  "author": "BCariaga",
+  "license": "MIT"
+}
