@@ -1,0 +1,64 @@
+// 1. Import the initial variables
+@import "./node_modules/bulma/sass/utilities/initial-variables";
+@import "./node_modules/bulma/sass/utilities/functions";
+// 2. Set your own initial variables
+// Add a serif family
+// $family-serif: "Merriweather", "Georgia", serif;
+// 3. Set the derived variables
+// Use the new pink as the primary color
+// $danger: $orange;
+// Use the new serif family
+// $family-primary: $family-serif;
+// 4. Setup your Custom Colors
+// $linkedin: #0077b5;
+// $linkedin-invert: findColorInvert($linkedin);
+// 5. Add new color variables to the color map.
+@import "./node_modules/bulma/sass/utilities/derived-variables";
+// $addColors: (
+//   "twitter":($twitter, $twitter-invert),
+//   "linkedin": ($linkedin, $linkedin-invert),
+//   "github": ($github, $github-invert)
+// );
+// $colors: map-merge($colors, $addColors);
+$section-padding: 1rem .5rem;
+// 6. Import the rest of Bulma
+@import "./node_modules/bulma/bulma";
+html {
+    overflow-y: hidden;
+}
+
+body {
+    // background-color: hsl(0, 0%, 29%);
+    color: white;
+    overflow-y: hidden;
+}
+
+.section-is-dark {
+    background-color: $dark;
+}
+
+.table-is-centered {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.is-horizontal > li{
+    display:inline;
+}
+
+.has-padding > li {
+    padding-left: .5rem;
+    padding-right: .5rem;
+}
+
+.window-controls{
+    left: 92%;
+}
+
+.window-controls > ul > li{
+    cursor: pointer;
+}
+
+.window-controls > ul > li:hover{
+    background-color: black;
+}

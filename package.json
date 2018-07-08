@@ -3,8 +3,13 @@
   "version": "0.0.1",
   "description": "una ui con electron para Memcached",
   "main": "main.js",
+  "repository": {
+    "url": "https://github.com/bcariaga/meele.git"
+  },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "sass" : "sass ./meele-styles.scss ./build/meele.css",
+    "sass-watch" : "sass --watch ./meele-styles.scss ./build/meele.css"
   },
   "keywords": [
     "memcached",
@@ -12,5 +17,12 @@
     "nodejs"
   ],
   "author": "BCariaga",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bulma": "^0.7.1",
+    "memcached": "^2.2.2"
+  },
+  "devDependencies": {
+    "electron": "^2.0.4"
+  }
 }

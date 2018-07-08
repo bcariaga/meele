@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Meele</title>
+    <link rel="stylesheet" href="./build/meele.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+</head>
+
+<body>
+    <section class="hero is-success is-fullheight">
+        <section class="section section-is-dark">
+            <div class="is-pulled-right is-overlay window-controls">
+                <ul class="is-horizontal has-padding">
+                    <li id="min-btn">
+                        <i class="fa fa-window-minimize"></i>
+                    </li>
+                    <li id="max-btn">
+                        <i class="fa fa-window-maximize"></i>
+                    </li>
+                    <li id="close-btn">
+                        <i class="fa fa-times"></i>
+                    </li>
+                </ul>
+            </div>
+
+            <nav class="level">
+                <p class="level-item has-text-centered">
+                    <a class="link is-info">Home</a>
+                </p>
+                <div class="has-text-centered">
+                    <figure class="image is-64x64">
+                        <img src="./public/images/meele.png">
+                    </figure>
+                    <p class="heading">Meele</p>
+                </div>
+                <p class="level-item has-text-centered">
+                    <a class="link is-info">Menu</a>
+                </p>
+            </nav>
+        </section>
+        <div class="hero-body">
+            <div class="container is-fluid has-text-centered">
+
+                <table class="table table-is-centered" id="memcached-table">
+                    <thead id="memcached-table-head">
+                        <tr>
+                            <th>Clave</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="memcached-table-body">
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </section>
+    <script>
+        var { remote } = require('electron');
+        window.$ = window.jQuery = require('./public/js/jquery-3.3.1.min.js');
+        require('electron').ipcRenderer.on('memcached', (event, data) => {
+            console.log(data) // Prints 'whoooooooh!'
+            var tr = $("<tr/>");
+            var key = $("<td/>").text(data.key);
+            var data = $("<td/>").text(data.data);
+            tr.append(key);
+            tr.append(data);
+            $("#memcached-table-body")
+                .append(tr)
+        })
+
+        /*Botones*/
+        document.getElementById("min-btn").addEventListener("click", function (e) {
+            var window = remote.getCurrentWindow();
+            window.minimize();
+        });
+
+        document.getElementById("max-btn").addEventListener("click", function (e) {
+            var window = remote.getCurrentWindow();
+            if (!window.isMaximized()) {
+                window.maximize();
+            } else {
+                window.unmaximize();
+            }
+        });
+
+        document.getElementById("close-btn").addEventListener("click", function (e) {
+            var window = remote.getCurrentWindow();
+            window.close();
+        });
+    </script>
+</body>
+
+</html>

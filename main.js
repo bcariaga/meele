@@ -10,12 +10,21 @@ let win;
 
 function createWindow () {
 	// Create the browser window.
-	win = new BrowserWindow({width: 1280, height: 720});
+	//
+	win = new BrowserWindow(
+		{
+			titleBarStyle: 'hiddenInset',
+			frame: false,
+			width: 1280, height: 720,
+			minWidth: 600, minHeight :600 
+		}
+	);
 	win.setMenu(null);
 	// and load the index.html of the app.
-	win.loadFile('index.html')
+	// win.loadFile('index.html');
+	win.loadFile('main.html');
 	win.webContents.openDevTools({mode: 'detach'});
-	
+	memcached.set('foo', 'bar', 10, function (err) { if (err)console.log(err) });
 	win.on('closed', () => {
 		// Dereference the window object, usually you would store windows
 		// in an array if your app supports multi windows, this is the time
@@ -42,8 +51,6 @@ function createWindow () {
 								if (err) {
 									console.log(err);
 								} else {
-									console.log(data);
-									// stored.value = data;
 									win.webContents.send("memcached", {
 										key : cachedump.key,
 										data : data
