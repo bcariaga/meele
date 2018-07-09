@@ -21,6 +21,7 @@
 // );
 // $colors: map-merge($colors, $addColors);
 $section-padding: 1rem .5rem;
+$primary : #192633;
 // 6. Import the rest of Bulma
 @import "./node_modules/bulma/bulma";
 html {

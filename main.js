@@ -1,8 +1,9 @@
 const {app, BrowserWindow} = require('electron');
-const Memcached = require('memcached');
+// const Memcached = require('memcached');
 
-var server = process.env.SERVER || '127.0.0.1:11211';
-var memcached = new Memcached(server);
+// var server = process.env.SERVER || '127.0.0.1:11211';
+// var memcached = new Memcached(server);
+const memcached = require("./memcached/memcached")
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -24,7 +25,7 @@ function createWindow () {
 	// win.loadFile('index.html');
 	win.loadFile('main.html');
 	win.webContents.openDevTools({mode: 'detach'});
-	memcached.set('foo', 'bar', 10, function (err) { if (err)console.log(err) });
+	// memcached.set('foo', 'bar', 10, function (err) { if (err)console.log(err) });
 	win.on('closed', () => {
 		// Dereference the window object, usually you would store windows
 		// in an array if your app supports multi windows, this is the time
@@ -32,38 +33,42 @@ function createWindow () {
 		win = null
 	});
 	win.webContents.on('did-finish-load', () => {
+		memcached.store("foo", {name : "pepe"});
+		memcached.store("bar", {name : "pepa"});
 		
-		memcached.slabs(function(err, stats){
-			if (err)console.error(err);
+		var allItems = memcached.getAllItems(items => console.log(items));
+		
+		
+		win.webContents.send("memcached", allItems);
+		// memcached.slabs(function(err, stats){
+		// 	if (err)console.error(err);
 			
 	
-			let slabsIds = Object.keys(stats[0]);
-			for (let slabId in slabsIds) {
-				let slabIdInt = parseInt(slabId);
-				if ( slabIdInt !== NaN){
-					memcached.cachedump(server, slabIdInt, 0, function(err, cachedump){
-						if (err)
-							console.log(err);
-						else if(cachedump){
+		// 	let slabsIds = Object.keys(stats[0]);
+		// 	for (let slabId in slabsIds) {
+		// 		let slabIdInt = parseInt(slabId);
+		// 		if ( slabIdInt !== NaN){
+		// 			memcached.cachedump(server, slabIdInt, 0, function(err, cachedump){
+		// 				if (err)
+		// 					console.log(err);
+		// 				else if(cachedump){
 							
-							// var stored = {key : cachedump.key}
-							memcached.get(cachedump.key, function(err, data){
-								if (err) {
-									console.log(err);
-								} else {
-									win.webContents.send("memcached", {
-										key : cachedump.key,
-										data : data
-									});
-								}
-							});
-						}
-					});
-				} 
-	
-	
-			}
-		});
+		// 					// var stored = {key : cachedump.key}
+		// 					memcached.get(cachedump.key, function(err, data){
+		// 						if (err) {
+		// 							console.log(err);
+		// 						} else {
+		// 							win.webContents.send("memcached", {
+		// 								key : cachedump.key,
+		// 								data : data
+		// 							});
+		// 						}
+		// 					});
+		// 				}
+		// 			});
+		// 		} 
+		// 	}
+		// });
 	})
 
 

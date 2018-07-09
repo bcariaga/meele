@@ -4076,7 +4076,7 @@ a.box:active {
 }
 .table td.is-selected,
 .table th.is-selected {
-  background-color: #00d1b2;
+  background-color: #192633;
   color: #fff;
 }
 .table td.is-selected a,
@@ -4090,7 +4090,7 @@ a.box:active {
   text-align: left;
 }
 .table tr.is-selected {
-  background-color: #00d1b2;
+  background-color: #192633;
   color: #fff;
 }
 .table tr.is-selected a,
