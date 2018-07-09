@@ -8,8 +8,10 @@
   },
   "scripts": {
     "start": "electron .",
-    "sass" : "sass ./meele-styles.scss ./build/meele.css",
-    "sass-watch" : "sass --watch ./meele-styles.scss ./build/meele.css"
+    "sass": "sass ./meele-styles.scss ./build/meele.css",
+    "sass-watch": "sass --watch ./meele-styles.scss ./build/meele.css",
+    "exe" : "electron-packager . meele --platform=win32"
+
   },
   "keywords": [
     "memcached",
@@ -23,6 +25,7 @@
     "memcached": "^2.2.2"
   },
   "devDependencies": {
-    "electron": "^2.0.4"
+    "electron": "^2.0.4",
+    "electron-packager": "^12.1.0"
   }
 }
